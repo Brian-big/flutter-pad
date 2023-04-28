@@ -1,7 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CounterCubit extends Cubit<int> {
-  CounterCubit(super.initialState);
+  CounterCubit() : super(0);
+
+  @override
+  void onChange(Change<int> change) {
+    super.onChange(change);
+    print(change);
+  }
 
   void increment() => emit(state + 1);
 

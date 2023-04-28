@@ -1,5 +1,4 @@
 import 'package:fluter_pad/counter_bloc.dart';
-import 'package:fluter_pad/counter_event.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -31,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _cubit = CounterCubit(0);
+  final _cubit = CounterCubit();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,19 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               );
             }),
-
-        // child: Column(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: <Widget>[
-        //     const Text(
-        //       'You have pushed the button this many times:',
-        //     ),
-        //     Text(
-        //       '$_counter',
-        //       style: Theme.of(context).textTheme.headlineMedium,
-        //     ),
-        //   ],
-        // ),
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -89,5 +75,11 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _cubit.close();
   }
 }
