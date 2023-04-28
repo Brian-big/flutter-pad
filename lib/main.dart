@@ -31,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _bloc = CounterBloc();
+  final _cubit = CounterCubit(0);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: StreamBuilder(
-            stream: _bloc.counter,
+            stream: _cubit.stream,
             initialData: 0,
             builder: (context, snapshot) {
               return Column(
@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: () => {_bloc.counterEventSink.add(Incrementevent())},
+            onPressed: () => {_cubit.increment()},
             tooltip: 'Increment',
             child: const Icon(Icons.add),
           ),
@@ -82,18 +82,12 @@ class _MyHomePageState extends State<MyHomePage> {
             width: 10,
           ),
           FloatingActionButton(
-            onPressed: () => {_bloc.counterEventSink.add(Decrementevent())},
+            onPressed: () => {_cubit.decrement()},
             tooltip: 'Decrement',
             child: const Icon(Icons.remove),
           ),
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _bloc.dispose();
   }
 }
