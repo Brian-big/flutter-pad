@@ -1,5 +1,7 @@
 import 'package:fluter_pad/counter_bloc.dart';
+import 'package:fluter_pad/counter_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,6 +33,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _cubit = CounterCubit();
+  final _bloc = CounterBloc();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: StreamBuilder(
-            stream: _cubit.stream,
+            stream: _bloc.stream,
             initialData: 0,
             builder: (context, snapshot) {
               return Column(
@@ -60,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: () => {_cubit.increment()},
+            onPressed: () => {_bloc.add(Incrementevent())},
             tooltip: 'Increment',
             child: const Icon(Icons.add),
           ),
@@ -68,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
             width: 10,
           ),
           FloatingActionButton(
-            onPressed: () => {_cubit.decrement()},
+            onPressed: () => {_bloc.add(Decrementevent())},
             tooltip: 'Decrement',
             child: const Icon(Icons.remove),
           ),
